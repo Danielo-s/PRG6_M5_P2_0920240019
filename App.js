@@ -8,6 +8,7 @@ import HomeScreen from "./pages/HomeScreen";
 import DetailScreen from "./pages/DetailScreen";
 import HistoryScreen from "./pages/HistoryScreen";
 import { AuthProvider } from "./context/AuthContext";
+import AboutScreen from "./pages/AboutScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -48,6 +49,14 @@ export default function App() {
             options={{
               tabBarLabel: "Riwayat",
               tabBarIcon: ({ color }) => <MaterialIcons name="history" size={24} color={color} />
+            }}
+          />
+          <Tab.Screen
+            name="AboutTab"
+            component={AboutScreen}
+            options={{
+              tabBarLabel: "Tentang",
+              tabBarIcon: ({ color }) => <MaterialIcons name="info" size={24} color={color} />
             }}
           />
         </Tab.Navigator>
