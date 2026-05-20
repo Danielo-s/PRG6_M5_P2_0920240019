@@ -7,7 +7,8 @@ import {
   TouchableOpacity, 
   ActivityIndicator,
   TextInput,
-  ScrollView
+  ScrollView,
+  Alert 
 } from "react-native";
 import axios from "axios";
 import Config from "../Config";
@@ -35,8 +36,10 @@ export default function ListBarang({ navigation }) {
       setLaporan(response.data);
       setFilteredLaporan(response.data);
     } catch (error) {
-      console.log(error);
-      setError("Gagal mengambil data");
+      Alert.alert(
+        "Gagal Memuat Data",
+        "Data barang tidak dapat diambil. Periksa koneksi internet atau server.",
+      );
     } finally {
       setLoading(false);
     }
