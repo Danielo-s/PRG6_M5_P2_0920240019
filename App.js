@@ -4,27 +4,43 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { MaterialIcons } from "@expo/vector-icons";
 
-import HomeScreen from "./pages/HomeScreen";
-import DetailScreen from "./pages/DetailScreen";
-import HistoryScreen from "./pages/HistoryScreen";
-import { AuthProvider } from "./context/AuthContext";
-import AboutScreen from "./pages/AboutScreen";
+import Dashboard from "./pages/Dashboard";
+import TambahLaporan from "./pages/TambahLaporan";
+import ListBarang from "./pages/ListBarang";
+import DetailBarang from "./pages/DetailBarang";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-function HistoryStack() {
+function LaporanStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="History"
-        component={HistoryScreen}
-        options={{ title: "Riwayat Presensi" }}
+        name="Dashboard"
+        component={Dashboard}
+        options={{ title: "Findit - Lost & Found" }}
       />
       <Stack.Screen
-        name="Detail"
-        component={DetailScreen}
-        options={{ title: "Detail Informasi" }}
+        name="DetailBarang"
+        component={DetailBarang}
+        options={{ title: "Detail Barang" }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function DaftarStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="ListBarang"
+        component={ListBarang}
+        options={{ title: "Daftar Laporan" }}
+      />
+      <Stack.Screen
+        name="DetailBarang"
+        component={DetailBarang}
+        options={{ title: "Detail Barang" }}
       />
     </Stack.Navigator>
   );
@@ -32,35 +48,50 @@ function HistoryStack() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <NavigationContainer>
-        <Tab.Navigator screenOptions={{ tabBarActiveTintColor: "#0056a0", headerShown: false }} >
-          <Tab.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{
-              tabBarLabel: "Beranda",
-              tabBarIcon: ({ color }) => <MaterialIcons name="home" size={24} color={color} />
-            }}
-          />
-          <Tab.Screen
-            name="HistoryTab"
-            component={HistoryStack}
-            options={{
-              tabBarLabel: "Riwayat",
-              tabBarIcon: ({ color }) => <MaterialIcons name="history" size={24} color={color} />
-            }}
-          />
-          <Tab.Screen
-            name="AboutTab"
-            component={AboutScreen}
-            options={{
-              tabBarLabel: "Tentang",
-              tabBarIcon: ({ color }) => <MaterialIcons name="info" size={24} color={color} />
-            }}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </AuthProvider>
+    <NavigationContainer>
+      <Tab.Navigator 
+        screenOptions={{ 
+          tabBarActiveTintColor: "#2E7D32", 
+          headerShown: false,
+          tabBarStyle: {
+            backgroundColor: 'white',
+            paddingBottom: 5,
+            paddingTop: 5,
+            height: 60,
+          },
+          tabBarLabelStyle: {
+            fontSize: 12,
+            fontWeight: '500',
+          }
+        }} 
+      >
+        <Tab.Screen
+          name="Beranda"
+          component={LaporanStack}
+          options={{
+            tabBarLabel: "Beranda",
+            tabBarIcon: ({ color }) => <MaterialIcons name="home" size={24} color={color} />
+          }}
+        />
+        
+        <Tab.Screen
+          name="TambahLaporan"
+          component={TambahLaporan}
+          options={{
+            tabBarLabel: "Tambah",
+            tabBarIcon: ({ color }) => <MaterialIcons name="add-circle" size={24} color={color} />
+          }}
+        />
+        
+        <Tab.Screen
+          name="ListBarang"
+          component={DaftarStack}
+          options={{
+            tabBarLabel: "List Barang",
+            tabBarIcon: ({ color }) => <MaterialIcons name="list" size={24} color={color} />
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
